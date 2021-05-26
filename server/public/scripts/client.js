@@ -8,6 +8,9 @@ function addClickHandlers() {
   $('#submitBtn').on('click', handleSubmit);
 
   // TODO - Add code for edit & delete buttons
+
+  //Need to add a click lister for my delete button
+  $('#bookShelf').on('click', '.deleteButton', deleteBookHandler);
 }
 
 function handleSubmit() {
@@ -58,7 +61,25 @@ function renderBooks(books) {
       <tr>
         <td>${book.title}</td>
         <td>${book.author}</td>
+        <td><button class="deleteButton" data-id="${book.id}">DELETE</button></td>
       </tr>
     `);
   }
+}
+
+function deleteBookHandler () {
+  // console.log('Delete clicker working');
+  deleteBook($(this).data("id"));
+}
+
+function deleteBook (bookId) {
+  $.ajax ({
+    method: 'DELETE',
+    url: `/books/${bookId}`
+  }).then( response => {
+    console.log('Book was successfully deleted!');
+    refreshBooks();
+  }).catch (err => {
+    console.log('There was a problem deleting that book.', err);
+  });
 }
