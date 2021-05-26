@@ -42,7 +42,7 @@ router.post('/',  (req, res) => {
 router.put('/:id', (req, res) => {
   
   const bookId = req.params.id;
-  const queryString = '';
+  let queryString = '';
 
   let isRead = req.body.isRead;
 

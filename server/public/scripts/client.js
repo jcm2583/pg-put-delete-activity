@@ -65,7 +65,7 @@ function renderBooks(books) {
         <td>${book.title}</td>
         <td>${book.author}</td>
         <td><button class="deleteButton" data-id="${book.id}">DELETE</button></td>
-        <td><button class="truthyButton" data-id="${book.id}">I have read it!</button></td>
+        <td><button class="truthyButton" data-id="${book.id}">I have read that book!</button></td>
       </tr>
     `);
   }
@@ -90,8 +90,23 @@ function deleteBook (bookId) {
 
 function booleanBookHandler () {
   bookStatus($(this).data("id"));
+
 };
 
-function bookStatus () {
-  console.log('clicker worked');
+function bookStatus (bookId, isRead) {
+  // console.log('clicker worked');
+  $.ajax({
+      method: 'PUT',
+      url: `/books/${bookId}`,
+      data: {
+        isRead: isRead 
+      }
+    }).then(response => {
+      console.log('Hello Books');
+      refreshBooks();
+  }).catch (err => {
+      console.log('There was an error', err);
+      alert ('Are you sure that you read that book??');
+  })
+
 };
