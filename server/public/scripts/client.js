@@ -11,6 +11,9 @@ function addClickHandlers() {
 
   //Need to add a click lister for my delete button
   $('#bookShelf').on('click', '.deleteButton', deleteBookHandler);
+
+  //Need to add a click listener for my isRead button
+  $('#bookShelf').on('click', '.truthyButton', booleanBookHandler);
 }
 
 function handleSubmit() {
@@ -62,6 +65,7 @@ function renderBooks(books) {
         <td>${book.title}</td>
         <td>${book.author}</td>
         <td><button class="deleteButton" data-id="${book.id}">DELETE</button></td>
+        <td><button class="truthyButton" data-id="${book.id}">I have read it!</button></td>
       </tr>
     `);
   }
@@ -82,4 +86,12 @@ function deleteBook (bookId) {
   }).catch (err => {
     console.log('There was a problem deleting that book.', err);
   });
-}
+};
+
+function booleanBookHandler () {
+  bookStatus($(this).data("id"));
+};
+
+function bookStatus () {
+  console.log('clicker worked');
+};
