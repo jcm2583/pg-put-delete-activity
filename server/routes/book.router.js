@@ -46,16 +46,16 @@ router.put('/:id', (req, res) => {
 
   let isRead = req.body.isRead;
 
-  if (isRead === true) {
-    queryString = 'UPDATE "books" SET "isRead" = true WHERE "books".id = $1;';
+  if (isRead == "true") {
+    queryString = 'UPDATE "books" SET "isRead" = NOT "isRead" WHERE "books".id = $1;';
   }
-  else if (isRead !== true) {
-    queryString = 'UPDATE "books" SET "isRead" = false WHERE "books".id = $1;';
-  }
-  else {
-    res.sendStatus(500);
-    return;
-  };
+  // else if (isRead == false) {
+  //   queryString = 'UPDATE "books" SET "isRead" = false WHERE "books".id = $1;';
+  // }
+  // else {
+  //   res.sendStatus(500);
+  //   return;
+  // };
 
   pool.query(queryString, [bookId])
   .then(response => {

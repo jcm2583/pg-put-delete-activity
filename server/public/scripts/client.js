@@ -64,6 +64,7 @@ function renderBooks(books) {
       <tr>
         <td>${book.title}</td>
         <td>${book.author}</td>
+        <td>${book.isRead}</td>
         <td><button class="deleteButton" data-id="${book.id}">DELETE</button></td>
         <td><button class="truthyButton" data-id="${book.id}">I have read that book!</button></td>
       </tr>
@@ -99,10 +100,10 @@ function bookStatus (bookId, isRead) {
       method: 'PUT',
       url: `/books/${bookId}`,
       data: {
-        isRead: isRead 
+        isRead: true
       }
     }).then(response => {
-      console.log('Hello Books');
+      console.log('Book status updated!');
       refreshBooks();
   }).catch (err => {
       console.log('There was an error', err);
